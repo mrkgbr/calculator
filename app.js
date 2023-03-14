@@ -20,14 +20,20 @@ const operate = (operator, a, b) => {
 const display = document.querySelector("#calc-display");
 display.textContent = 0;
 let displayValue = display.textContent;
+
 const btn = document.querySelectorAll("button");
+
+const populate = (content) => {
+  if (displayValue != 0 || content == "." || displayValue.includes(".")) {
+    displayValue += content;
+  } else {
+    displayValue = content;
+  }
+  display.textContent = displayValue;
+};
+
 btn.forEach((btn) => {
   btn.addEventListener("click", () => {
-    if (displayValue == 0) {
-      displayValue = btn.textContent;
-    } else {
-      displayValue += btn.textContent;
-    }
-    display.textContent = displayValue;
+    populate(btn.textContent);
   });
 });
