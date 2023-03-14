@@ -30,20 +30,33 @@ const populate = (content) => {
 // SELECTORS
 const display = document.querySelector("#calc-display");
 const digits = document.querySelectorAll(".digits");
-const operator = document.querySelectorAll(".operator");
+const operators = document.querySelectorAll(".operators");
 const clear = document.querySelector(".clear");
+const equal = document.querySelector(".operate");
 
-display.textContent = 0;
+display.textContent = 0; // set default value to the display
 let displayValue = display.textContent;
+let firstNumber = 0;
+let operator;
 
-digits.forEach((digits) => {
-  digits.addEventListener("click", () => {
-    populate(digits.textContent);
+// ASSIGN FUNCTIONS TO THE BUTTONS
+
+digits.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    populate(btn.textContent);
   });
 });
 
-operator.forEach((operator) => {
-  operator.addEventListener("click", () => {
-    populate(operator.textContent);
+operators.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    firstNumber = displayValue;
+    operator = btn.textContent;
+    display.textContent = firstNumber;
+    displayValue = "0";
   });
+});
+
+equal.addEventListener("click", () => {
+  let result = operate(operator, Number(firstNumber), Number(displayValue));
+  console.log(result);
 });
