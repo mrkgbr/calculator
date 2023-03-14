@@ -17,13 +17,8 @@ const operate = (operator, a, b) => {
   }
 };
 
-const display = document.querySelector("#calc-display");
-display.textContent = 0;
-let displayValue = display.textContent;
-
-const btn = document.querySelectorAll("button");
-
 const populate = (content) => {
+  // updates display when click on digits
   if (displayValue != 0 || content == "." || displayValue.includes(".")) {
     displayValue += content;
   } else {
@@ -32,8 +27,23 @@ const populate = (content) => {
   display.textContent = displayValue;
 };
 
-btn.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    populate(btn.textContent);
+// SELECTORS
+const display = document.querySelector("#calc-display");
+const digits = document.querySelectorAll(".digits");
+const operator = document.querySelectorAll(".operator");
+const clear = document.querySelector(".clear");
+
+display.textContent = 0;
+let displayValue = display.textContent;
+
+digits.forEach((digits) => {
+  digits.addEventListener("click", () => {
+    populate(digits.textContent);
+  });
+});
+
+operator.forEach((operator) => {
+  operator.addEventListener("click", () => {
+    populate(operator.textContent);
   });
 });
