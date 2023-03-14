@@ -58,5 +58,7 @@ operators.forEach((btn) => {
 
 equal.addEventListener("click", () => {
   let result = operate(operator, Number(firstNumber), Number(displayValue));
-  console.log(result);
+  display.textContent = result;
+  firstNumber = result;
+  displayValue = "0";
 });
