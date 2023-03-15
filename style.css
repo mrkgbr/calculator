@@ -2,6 +2,11 @@ html {
   margin: 0;
 }
 
+body {
+  display: flex;
+  justify-content: center;
+}
+
 button {
   height: 50px;
   width: 50px;
@@ -12,31 +17,63 @@ button {
 #calc-body {
   border: 2px solid;
   width: 250px;
-  height: 500px;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 10px;
+  background-color: lightgray;
 }
 
 #calc-display {
   border: 1px solid;
   width: 220px;
-  height: 50px;
-  margin: 0;
+  height: 30px;
+  margin: 25px 0 0 0;
   padding: 0;
   text-align: end;
+  border-radius: 5px;
+  background-color: white;
 }
 
 #calc-buttons {
-  border: 1px solid;
   width: 220px;
-
-  margin: 0;
+  margin: 10px 0 20px 0;
   padding: 0;
 }
 
 #display-content {
   position: relative;
-  top: 20px;
+  top: 2px;
   left: -10px;
   font-size: 1.5rem;
+}
+
+.operators {
+  background-color: chocolate;
+}
+
+.operators:hover {
+  background-color: #d2691e85;
+}
+
+.operate {
+  background-color: green;
+}
+
+.operate:hover {
+  background-color: #00800089;
+}
+
+.clear {
+  background-color: red;
+}
+
+.clear:hover {
+  background-color: #ff000077;
 }
