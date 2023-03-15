@@ -12,6 +12,8 @@ button {
   width: 50px;
   margin: 2px 0;
   padding: 0;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 }
 
 #calc-body {
@@ -28,22 +30,25 @@ button {
   transform: translateY(-50%);
   border-radius: 10px;
   background-color: lightgray;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
 #calc-display {
   border: 1px solid;
-  width: 220px;
+  width: 215px;
   height: 30px;
   margin: 25px 0 0 0;
   padding: 0;
   text-align: end;
   border-radius: 5px;
   background-color: white;
+  box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset,
+    rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
 }
 
 #calc-buttons {
   width: 220px;
-  margin: 10px 0 20px 0;
+  margin: 20px 0 20px 0;
   padding: 0;
 }
 
