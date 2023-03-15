@@ -11,6 +11,7 @@ let firstNumber = "";
 let secondNumber = "";
 let operator;
 let result;
+let pressedEqual = false;
 
 displayValue = display.textContent = "0"; // set default value to the display
 
@@ -59,15 +60,21 @@ digits.forEach((btn) => {
 
 operators.forEach((btn) => {
   btn.addEventListener("click", () => {
-    operator = btn.textContent;
-    if (firstNumber === "") {
-      firstNumber = displayValue;
+    if (pressedEqual) {
+      operator = btn.textContent;
+      displayValue = "0";
+      pressedEqual = false;
     } else {
-      secondNumber = displayValue;
-      result = operate(operator, Number(firstNumber), Number(secondNumber));
-      firstNumber = result;
+      operator = btn.textContent;
+      if (firstNumber === "") {
+        firstNumber = displayValue;
+      } else {
+        secondNumber = displayValue;
+        result = operate(operator, Number(firstNumber), Number(secondNumber));
+        firstNumber = result;
+      }
+      displayValue = "0";
     }
-    displayValue = "0";
   });
 });
 
@@ -81,6 +88,7 @@ equal.addEventListener("click", () => {
   display.textContent = result;
   firstNumber = result;
   displayValue = "0";
+  pressedEqual = true;
 });
 
 clear.addEventListener("click", () => {
@@ -88,4 +96,5 @@ clear.addEventListener("click", () => {
   display.textContent = displayValue;
   firstNumber = "";
   result = "";
+  pressedEqual = false;
 });
