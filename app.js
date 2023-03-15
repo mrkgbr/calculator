@@ -66,8 +66,7 @@ operators.forEach((btn) => {
     if (pressedDigits || pressedEqual) {
       pressedOperator = true;
       if (pressedEqual) {
-        displayValue = "0";
-        pressedEqual = false;
+        operator = btn.textContent;
       } else {
         if (firstNumber === "") {
           firstNumber = displayValue;
@@ -82,6 +81,7 @@ operators.forEach((btn) => {
         displayValue = "0";
       }
     }
+    pressedEqual = false;
     pressedDigits = false;
   });
 });
