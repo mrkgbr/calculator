@@ -4,6 +4,7 @@ const digits = document.querySelectorAll(".digits");
 const operators = document.querySelectorAll(".operators");
 const clear = document.querySelector(".clear");
 const equal = document.querySelector(".operate");
+const backspace = document.querySelector(".backspace");
 
 // VARIABLES
 let displayValue;
@@ -36,20 +37,34 @@ const operate = (operator, a, b) => {
   }
 };
 
+const delChar = () => {
+  if (pressedDigits) {
+    array = displayValue.split("");
+    array.pop();
+    displayValue = array.join("");
+    if (displayValue.length == 0) {
+      displayValue = "0";
+    }
+    display.textContent = displayValue;
+  }
+};
+
 const populate = (content) => {
   // updates display when click on digits
-  if (content == "." && displayValue.includes(".")) {
-    return;
-  } else if (
-    displayValue != 0 ||
-    content == "." ||
-    displayValue.includes(".")
-  ) {
-    displayValue += content;
-  } else {
-    displayValue = content;
+  if (displayValue.length != 17) {
+    if (content == "." && displayValue.includes(".")) {
+      return;
+    } else if (
+      displayValue != 0 ||
+      content == "." ||
+      displayValue.includes(".")
+    ) {
+      displayValue += content;
+    } else {
+      displayValue = content;
+    }
+    display.textContent = displayValue;
   }
-  display.textContent = displayValue;
 };
 
 // ASSIGN FUNCTIONS TO THE BUTTONS
@@ -73,7 +88,15 @@ operators.forEach((btn) => {
           operator = btn.textContent;
         } else {
           secondNumber = displayValue;
-          result = operate(operator, Number(firstNumber), Number(secondNumber));
+          if (secondNumber == 0 && operator == "/") {
+            alert("You cannot divide by zero!");
+            return;
+          }
+          result =
+            Math.round(
+              operate(operator, Number(firstNumber), Number(secondNumber)) *
+                10_000
+            ) / 10_000;
           firstNumber = result;
           display.textContent = result;
           operator = btn.textContent;
@@ -89,15 +112,22 @@ operators.forEach((btn) => {
 equal.addEventListener("click", () => {
   if (pressedOperator && pressedDigits) {
     secondNumber = displayValue;
-    result = operate(operator, Number(firstNumber), Number(secondNumber));
+    if (secondNumber == 0 && operator == "/") {
+      alert("You cannot divide by zero!");
+      return;
+    }
+    result =
+      Math.round(
+        operate(operator, Number(firstNumber), Number(secondNumber)) * 10_000
+      ) / 10_000;
     display.textContent = result;
     firstNumber = result;
     operator = "";
+    pressedOperator = false;
+    pressedEqual = true;
+    pressedDigits = false;
+    displayValue = "0";
   }
-  displayValue = "0";
-  pressedOperator = false;
-  pressedEqual = true;
-  pressedDigits = false;
 });
 
 clear.addEventListener("click", () => {
@@ -108,4 +138,8 @@ clear.addEventListener("click", () => {
   pressedEqual = false;
   pressedOperator = false;
   pressedDigits = false;
+});
+
+backspace.addEventListener("click", () => {
+  delChar();
 });
