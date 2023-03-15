@@ -59,6 +59,9 @@ button {
   font-size: 1.5rem;
 }
 
+.digits:hover {
+  background-color: silver;
+}
 .operators {
   background-color: chocolate;
 }

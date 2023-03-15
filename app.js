@@ -13,6 +13,7 @@ let operator;
 let result;
 let pressedEqual = false;
 let pressedOperator = false;
+let pressedDigits = false;
 
 displayValue = display.textContent = "0"; // set default value to the display
 
@@ -55,34 +56,38 @@ const populate = (content) => {
 
 digits.forEach((btn) => {
   btn.addEventListener("click", () => {
+    pressedDigits = true;
     populate(btn.textContent);
   });
 });
 
 operators.forEach((btn) => {
   btn.addEventListener("click", () => {
-    pressedOperator = true;
-    if (pressedEqual) {
-      operator = btn.textContent;
-      displayValue = "0";
-      pressedEqual = false;
-    } else {
-      operator = btn.textContent;
-      if (firstNumber === "") {
-        firstNumber = displayValue;
+    if (pressedDigits || pressedEqual) {
+      pressedOperator = true;
+      if (pressedEqual) {
+        displayValue = "0";
+        pressedEqual = false;
       } else {
-        secondNumber = displayValue;
-        result = operate(operator, Number(firstNumber), Number(secondNumber));
-        firstNumber = result;
-        display.textContent = result;
+        if (firstNumber === "") {
+          firstNumber = displayValue;
+          operator = btn.textContent;
+        } else {
+          secondNumber = displayValue;
+          result = operate(operator, Number(firstNumber), Number(secondNumber));
+          firstNumber = result;
+          display.textContent = result;
+          operator = btn.textContent;
+        }
+        displayValue = "0";
       }
-      displayValue = "0";
     }
+    pressedDigits = false;
   });
 });
 
 equal.addEventListener("click", () => {
-  if (pressedOperator) {
+  if (pressedOperator && pressedDigits) {
     secondNumber = displayValue;
     result = operate(operator, Number(firstNumber), Number(secondNumber));
     display.textContent = result;
@@ -92,6 +97,7 @@ equal.addEventListener("click", () => {
   displayValue = "0";
   pressedOperator = false;
   pressedEqual = true;
+  pressedDigits = false;
 });
 
 clear.addEventListener("click", () => {
@@ -101,4 +107,5 @@ clear.addEventListener("click", () => {
   result = "";
   pressedEqual = false;
   pressedOperator = false;
+  pressedDigits = false;
 });
