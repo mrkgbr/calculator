@@ -5,22 +5,38 @@ html {
 button {
   height: 50px;
   width: 50px;
+  margin: 2px 0;
+  padding: 0;
 }
 
 #calc-body {
   border: 2px solid;
   width: 250px;
   height: 500px;
+  margin: 0;
+  padding: 0;
 }
 
 #calc-display {
   border: 1px solid;
   width: 220px;
   height: 50px;
+  margin: 0;
+  padding: 0;
+  text-align: end;
 }
 
 #calc-buttons {
   border: 1px solid;
   width: 220px;
-  height: 400px;
+
+  margin: 0;
+  padding: 0;
+}
+
+#display-content {
+  position: relative;
+  top: 20px;
+  left: -10px;
+  font-size: 1.5rem;
 }

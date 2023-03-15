@@ -1,3 +1,19 @@
+// SELECTORS
+const display = document.querySelector("#display-content");
+const digits = document.querySelectorAll(".digits");
+const operators = document.querySelectorAll(".operators");
+const clear = document.querySelector(".clear");
+const equal = document.querySelector(".operate");
+
+// VARIABLES
+let displayValue;
+let firstNumber = "";
+let secondNumber = "";
+let operator;
+let result;
+
+displayValue = display.textContent = "0"; // set default value to the display
+
 // FUNCTIONS
 
 const add = (a, b) => a + b;
@@ -19,25 +35,19 @@ const operate = (operator, a, b) => {
 
 const populate = (content) => {
   // updates display when click on digits
-  if (displayValue != 0 || content == "." || displayValue.includes(".")) {
+  if (content == "." && displayValue.includes(".")) {
+    return;
+  } else if (
+    displayValue != 0 ||
+    content == "." ||
+    displayValue.includes(".")
+  ) {
     displayValue += content;
   } else {
     displayValue = content;
   }
   display.textContent = displayValue;
 };
-
-// SELECTORS
-const display = document.querySelector("#calc-display");
-const digits = document.querySelectorAll(".digits");
-const operators = document.querySelectorAll(".operators");
-const clear = document.querySelector(".clear");
-const equal = document.querySelector(".operate");
-
-display.textContent = 0; // set default value to the display
-let displayValue = display.textContent;
-let firstNumber = 0;
-let operator;
 
 // ASSIGN FUNCTIONS TO THE BUTTONS
 
@@ -49,16 +59,33 @@ digits.forEach((btn) => {
 
 operators.forEach((btn) => {
   btn.addEventListener("click", () => {
-    firstNumber = displayValue;
     operator = btn.textContent;
-    display.textContent = firstNumber;
+    if (firstNumber === "") {
+      firstNumber = displayValue;
+    } else {
+      secondNumber = displayValue;
+      result = operate(operator, Number(firstNumber), Number(secondNumber));
+      firstNumber = result;
+    }
     displayValue = "0";
   });
 });
 
 equal.addEventListener("click", () => {
-  let result = operate(operator, Number(firstNumber), Number(displayValue));
+  if (firstNumber === "") {
+    firstNumber = "0";
+  } else {
+    secondNumber = displayValue;
+  }
+  result = operate(operator, Number(firstNumber), Number(secondNumber));
   display.textContent = result;
   firstNumber = result;
   displayValue = "0";
+});
+
+clear.addEventListener("click", () => {
+  displayValue = "0";
+  display.textContent = displayValue;
+  firstNumber = "";
+  result = "";
 });
